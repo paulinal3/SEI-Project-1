@@ -8,9 +8,9 @@ Manataees are back on the endangered species list! Help Manny find enough food w
 * JavaScript
 
 ## Wireframes 
-Start screen
+* Start screen
 ![Wireframe Start](/css/images/hungry%20to%20full%20meter%20bar.png)
-Playing screen
+* Playing screen
 ![Wireframe](css/images/game%20wireframe.png)
 
 ## MVP Goals
