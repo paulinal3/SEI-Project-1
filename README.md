@@ -14,16 +14,16 @@ Manataees are back on the endangered species list! Help Manny find enough food w
 ![Wireframe](css/images/game%20wireframe.png)
 
 ## MVP Goals
-* Render a start screen with game instructions and a start button
 * Render game screen/canvas with the manatee's oxygen and hunger meter
-* Render food randomly along the canvas
-* Render trash randomly falling down in the ocean
 * Manatee can move around to find food/dodge trash with WASD keys
+* Render food randomly along the canvas
 * As manatee collects food, hunger bar incremently increases to full
+* Render trash randomly falling down in the ocean
 * Manatee dies if it collides with trash 3 times
 * Manatee wins/is saved if hunger meter reaches full
 
 ## Stretch Goals
+* Render a start screen with game instructions and a start button
 * Adding music to set sea vibes with option button to mute
 * Add levels that increase difficulty by having food spawn slower and/or trash falling faster
 * Bootstrap styling

@@ -1,0 +1,48 @@
+body {
+    margin: 8px;
+    padding: 0;
+    text-align: center;
+    background-color: #76b6c4;
+    /* background-image: url('images/under\ the\ sea.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat; */
+}
+
+#gameContainer {
+    max-width: 1150px;
+    max-height: 650px;
+    background-color: #7fcdff;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: .25fr .75fr;
+    grid-template-rows: .75fr .25fr;
+    grid-template-areas: "game game"
+    "btmLeft btmRight";
+    justify-content: center;
+}
+
+canvas {
+    background-color: #064273;
+    width: 100%;
+    height: 100%;
+    justify-self: center;
+}
+
+main {
+    grid-area: game;
+}
+
+aside {
+    border: 10px solid #def3f6;
+    font-size: 25px;
+    padding: 15px;
+}
+
+#btmLeft {
+    grid-area: btmLeft;
+}
+
+#btmRight {
+    grid-area: btmRight;
+}
