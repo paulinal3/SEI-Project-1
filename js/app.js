@@ -33,6 +33,9 @@ manatee.src = ('../js/images/manatee.png')
 const food = new Image()
 food.src = ('../js/images/foodPixil.png')
 
+const bittenApple = new Image()
+bittenApple.src = ('../js/images/applePixil.png')
+
 function drawGameElem(img, dX, dY, dW, dH) {
     ctx.drawImage(img, dX, dY, dW, dH)
     this.alive = true
@@ -42,40 +45,46 @@ function animate() {
     ctx. clearRect(0, 0, canvas.width, canvas.height)
     drawGameElem(manatee, player.x, player.y, player.width, player.height)
     let food1 = drawGameElem(food, 235, 132, 14, 18,)
+    let trash1 = drawGameElem(bittenApple, 150, 15, 16, 18)
     requestAnimationFrame(animate)
 }
 
+// allow player to move manatee around with with arrow keys
 let movePlayer = (e) => {
 switch (e.key) {
     // left arrow
     case ('ArrowLeft'):
         player.x -= player.speed
+        if (player.x <= 25) {
+            player.x = 25
+        }
         break
     // up arrow
     case ('ArrowUp'):
         player.y -= player.speed
+        if (player.y <= 10) {
+            player. y = 10
+        }
         break
     // right arrow
     case ('ArrowRight'):
         player.x += player.speed
+        if (player.x >= 235) {
+            player.x = 235
+        }
         break
     // down arrow
     case ('ArrowDown'):
         player.y += player.speed
+        if (player.y >= 135) {
+            player.y = 135
+        }
         break
     }
 }
 
 animate()
          
-// let player = new gameElem(10, 25, 'gray', 10, 10)
-// let food = new gameElem(200, 115, 'lightgreen', 10,35)
-// let trash = new gameElem(150, 35, 'red', 10, 20)
-// console.log(player)
-       
-// allow player to move manatee around with with arrow keys
-
-
 // const detectFoodEaten = () => {
 //     if (
 //         player.x < food.x + food.width &&
