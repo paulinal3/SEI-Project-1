@@ -15,24 +15,33 @@ const game = document.getElementById('canvas')
 const ctx = canvas.getContext('2d')
     
 let player = {
-    x: 10,
+    x: 25,
     y: 25,
-    width: 49,
-    height: 23,
+    width: 25,
+    height: 12,
     speed: 10,
     alive: true
 }
+
+// let food = {
+//     this.x = x
+// }
     
 const manatee = new Image()
-manatee.src = ('../css/images/manatee.png')
+manatee.src = ('../js/images/manatee.png')
+
+const food = new Image()
+food.src = ('../js/images/foodPixil.png')
 
 function drawGameElem(img, dX, dY, dW, dH) {
     ctx.drawImage(img, dX, dY, dW, dH)
+    this.alive = true
 }
 
 function animate() {
     ctx. clearRect(0, 0, canvas.width, canvas.height)
     drawGameElem(manatee, player.x, player.y, player.width, player.height)
+    let food1 = drawGameElem(food, 235, 132, 14, 18,)
     requestAnimationFrame(animate)
 }
 

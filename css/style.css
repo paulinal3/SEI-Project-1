@@ -18,7 +18,7 @@ body {
     grid-template-columns: .25fr .75fr;
     grid-template-rows: .75fr .25fr;
     grid-template-areas: "game game"
-    "btmLeft btmRight";
+                         "btmLeft btmRight";
     justify-content: center;
 }
 
