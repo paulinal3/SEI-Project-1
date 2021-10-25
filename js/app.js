@@ -13,7 +13,16 @@
 
 const game = document.getElementById('canvas')
 const ctx = canvas.getContext('2d')
-    
+const foodEaten = document.getElementById('btmRight')
+     
+const manateeImg = new Image()
+manateeImg.src = ('../js/images/manatee.png')
+
+function drawPlayer(img, dX, dY, dW, dH) {
+    ctx.drawImage(img, dX, dY, dW, dH)
+    this.alive = true
+}
+
 let player = {
     x: 25,
     y: 25,
@@ -23,31 +32,34 @@ let player = {
     alive: true
 }
 
-// let food = {
-//     this.x = x
-// }
-    
-const manatee = new Image()
-manatee.src = ('../js/images/manatee.png')
+const foodImg = new Image()
+foodImg.src = ('../js/images/foodPixil.png')
 
-const food = new Image()
-food.src = ('../js/images/foodPixil.png')
+const appleImg = new Image()
+appleImg.src = ('../js/images/applePixil.png')
 
-const bittenApple = new Image()
-bittenApple.src = ('../js/images/applePixil.png')
+const sodaImg = new Image()
+sodaImg.src = ('../js/images/sodaPixil.png')
 
-function drawGameElem(img, dX, dY, dW, dH) {
-    ctx.drawImage(img, dX, dY, dW, dH)
+function gameElem(url, x, y, speed, dir) {
+    this.url = url
+    this.x = x
+    this.y = y
+    this.speed = speed
+    this. dir = dir
     this.alive = true
+
+    this.render = function () {
+        ctx.drawImage(this.url, this.x, this.y,)
+    }
 }
 
-function animate() {
-    ctx. clearRect(0, 0, canvas.width, canvas.height)
-    drawGameElem(manatee, player.x, player.y, player.width, player.height)
-    let food1 = drawGameElem(food, 235, 132, 14, 18,)
-    let trash1 = drawGameElem(bittenApple, 150, 15, 16, 18)
-    requestAnimationFrame(animate)
-}
+let foodOne = new gameElem(foodImg, 200, 100, 0, 1,)
+let foodTwo = new gameElem(foodImg, 235, 132, 0, 0)
+let trashOne = new gameElem(appleImg, 150, 15)
+let trashTwo = new gameElem(sodaImg, 215, 5)
+
+// let food1 = new Sprite(food, 235, 132, 14, 18)
 
 // allow player to move manatee around with with arrow keys
 let movePlayer = (e) => {
@@ -69,8 +81,8 @@ switch (e.key) {
     // right arrow
     case ('ArrowRight'):
         player.x += player.speed
-        if (player.x >= 235) {
-            player.x = 235
+        if (player.x >= 245) {
+            player.x = 245
         }
         break
     // down arrow
@@ -81,6 +93,23 @@ switch (e.key) {
         }
         break
     }
+}
+
+let trashMove = () => {
+    trashOne.y += .25
+    trashTwo.y += .50
+}
+
+function animate() {
+    ctx. clearRect(0, 0, canvas.width, canvas.height)
+    trashOne.render()
+    foodOne.render()
+    foodTwo.render()
+    trashTwo.render()
+    trashMove()
+    // foodMove()
+    drawPlayer(manateeImg, player.x, player.y, player.width, player.height)
+    requestAnimationFrame(animate)
 }
 
 animate()
