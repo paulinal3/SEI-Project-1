@@ -214,7 +214,7 @@ function foodElem(url, x, y) {
 let foodArr = []
 function addFood () {
     for (i = 0; i <= 10; i++) {
-    let food = new foodElem(foodImg, (Math.random()*300), (Math.random()*150))
+    let food = new foodElem(foodImg, (Math.random()*300) + 100, (Math.random()*132))
     foodArr.push(food)
     }
 }
@@ -223,17 +223,25 @@ console.log(foodArr)
 
 // being called down in animate function
 function createFood() {
-    // if (foodArr.length <= 10) {
+    if (foodArr.length <= 10) {
         addFood()
-        let newFood = {}
-        console.log(newFood)
         // Loop over each array to render each item
-        for (let i = 0; i < 10; i++) {
-            newFood = foodArr[i]
-            newFood.render()
+    }
+    for (let i = 0; i < foodArr.length; i++) {
+        foodArr[i].render()
+    }
+}
+
+function moveFood () {
+    for (i = 0; i < foodArr.length; i++) {
+        if (player.x <= 25) {
+            foodArr.x[i] += 1
+        } else if (player.x >= 245) {
+            foodArr.x[i] -= 1
         }
     }
 }
+
 const appleImg = new Image()
 appleImg.src = ('../js/images/applePixil.png')
 
@@ -308,9 +316,8 @@ let movePlayer = (e) => {
             if (player.y >= 135) {
                 player.y = 135
             }
-            break
-        }
     }
+}
 
 // Refactor my collision detection so that it has a param to reuse for multiple items
 // Loop over food array and call detection on each of those
