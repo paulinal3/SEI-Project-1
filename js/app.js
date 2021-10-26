@@ -41,6 +41,9 @@ appleImg.src = ('../js/images/applePixil.png')
 const sodaImg = new Image()
 sodaImg.src = ('../js/images/sodaPixil.png')
 
+const burgerImg = new Image()
+burgerImg.src = ('../js/images/burgerPixil.png')
+
 function gameElem(url, x, y) {
     this.url = url
     this.x = x
@@ -52,11 +55,19 @@ function gameElem(url, x, y) {
     }
 }
 
+const trash = [appleImg, sodaImg, burgerImg]
+
+for (let i = 0; i<trash.length; i++) {
+    new gameElem(trash[i], (Math.floor(Math.random()*300)))
+}
+
 let foodOne = new gameElem(foodImg, 200, 100)
-let foodTwo = new gameElem(foodImg, 300, 132)
+let foodTwo = new gameElem(foodImg, 275, 45)
+let foodThree = new gameElem(foodImg, 300, 130)
 let trashOne = new gameElem(sodaImg, 75, 0)
 let trashTwo = new gameElem(appleImg, 150, 0)
 let trashThree = new gameElem(sodaImg, 215, 0)
+let trashFour = new gameElem(burgerImg, 250, -15)
 
 // allow player to move manatee around with with arrow keys
 let movePlayer = (e) => {
@@ -104,41 +115,52 @@ let trashMove = () => {
     if (trashOne.y >=175) {
         trashOne.y = 0
     }
-    trashTwo.y += Math.random()
+    trashTwo.y += .33
     if (trashTwo.y >=225) {
         trashTwo.y = 0
     }
     trashThree.y += Math.random()
     if (trashThree.y >= 190) {
         trashThree.y = 0
+    }
+    trashFour.y += .25
+    if (trashFour.y >= 175) {
+        trashFour.y = -10
     } 
 }
 
-// setInterval(trashMove, 1000)
-
 // create collsion detection for when player collects food
-const detectFoodEaten = () => {
-    if (
-        player.x < foodOne.x + foodOne.width &&
-        player.x + player.width > foodOne.x &&
-        player.y < foodOne.y + foodOne.height &&
-        player.y + player.height > foodOne.y
-    ) {
-        foodOne.alive = false
-    }
-}
+// const detectFoodEaten = () => {
+//     if (
+//         player.x < foodOne.x + foodOne.width &&
+//         player.x + player.width > foodOne.x &&
+//         player.y < foodOne.y + foodOne.height &&
+//         player.y + player.height > foodOne.y
+//     ) {
+//         foodOne.alive = false
+//     }
+// }
+
+// create separate arrays for food and trash to populate
+// Loop over each array to render each item
+// Refactor my collision detection so that it has a param to reuse for multiple items
+// Loop over food array and call detection on each of those
+// Splice the food from the array
 
 function animate() {
     // clears canvas
     ctx. clearRect(0, 0, canvas.width, canvas.height)
     trashOne.render()
-    if (foodOne.alive) {
-        foodOne.render()
-        detectFoodEaten()
-    }
+    // if (foodOne.alive) {
+    //     foodOne.render()
+    //     detectFoodEaten()
+    // }
+    foodOne.render()
     foodTwo.render()
+    foodThree.render()
     trashTwo.render()
     trashThree.render()
+    trashFour.render()
     trashMove()
     drawPlayer(manateeImg, player.x, player.y, player.width, player.height)
     requestAnimationFrame(animate)
