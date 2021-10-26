@@ -214,30 +214,37 @@ function foodElem(url, x, y) {
 let foodArr = []
 function addFood () {
     for (i = 0; i <= 10; i++) {
-    let food = new foodElem(foodImg, (Math.random()*300) + 100, (Math.random()*132))
+    let food = new foodElem(foodImg, (Math.random() * 700) + 100, (Math.random() * 132))
     foodArr.push(food)
     }
 }
 
-console.log(foodArr)
+console.log('this is the foodArr\n', foodArr)
 
 // being called down in animate function
 function createFood() {
     if (foodArr.length <= 10) {
         addFood()
-        // Loop over each array to render each item
     }
+    // Loop over each array to render each item
     for (let i = 0; i < foodArr.length; i++) {
         foodArr[i].render()
     }
 }
+                
+// have food move in the opposite direction when player hits breakpoint
+function moveFoodLeft () {
+    for (i = 0; i < foodArr.length; i++) {
+        if (player.x >= 245) {
+            foodArr[i].x -= 1
+        }
+    }
+}
 
-function moveFood () {
+function moveFoodRight () {
     for (i = 0; i < foodArr.length; i++) {
         if (player.x <= 25) {
-            foodArr.x[i] += 1
-        } else if (player.x >= 245) {
-            foodArr.x[i] -= 1
+            foodArr[i].x += 1
         }
     }
 }
@@ -251,6 +258,7 @@ sodaImg.src = ('../js/images/sodaPixil.png')
 const burgerImg = new Image()
 burgerImg.src = ('../js/images/burgerPixil.png')
 
+// trash class constructor
 function trashElem(url, x, y) {
     this.url = url
     this.x = x
@@ -266,29 +274,38 @@ function trashElem(url, x, y) {
     }
 }
 
-let trashArr = []
+let appleArr = []
+function addApple () {
+    for (i = 0; i <= 10; i++) {
+    let apple = new trashElem(appleImg, (Math.random() * 700) + 100, -10)
+    appleArr.push(apple)
+    }
+}
 
-// function spawnTrash() {
-//     setInterval(() => {
-//         const url = burgerImg
-//         const x = 200
-//         const y = 0
-//         const velocity = {
-//             x: 1,
-//             y: 1
-//         }
-//         trashArr.push(new gameElem(url, x, y, velocity))
+function moveAppleDown () {
+    for (i = 0; i < appleArr.length; i++) {
+        if (player.alive) {
+            appleArr[i].y += .25
+            if (appleArr[i].y > 150) {
+                appleArr[i].y = 0
+                moveAppleDown()
+            }
+        }
+    }
+}
 
-//         // console.log(trashArr)
-//     }, 3000)
-// } 
+console.log('this is the appleArr\n', appleArr)
 
-// let trashMove = () => {
-//     trashOne.y += Math.random()
-//     if (trashOne.y >=175) {
-//         trashOne.y = 0
-//     }
-// }
+// being called down in animate function
+function createApple() {
+    if (appleArr.length <= 10) {
+        addApple()
+    }
+    // Loop over each array to render each item
+    for (let i = 0; i < appleArr.length; i++) {
+        appleArr[i].render()
+    }
+}
 
 // allow player to move manatee with arrow keys
 let movePlayer = (e) => {
@@ -297,6 +314,7 @@ let movePlayer = (e) => {
             player.x -= player.speed
             if (player.x <= 25) {
                 player.x = 25
+                moveFoodRight()
             }
             break
         case ('ArrowUp'):
@@ -309,6 +327,7 @@ let movePlayer = (e) => {
             player.x += player.speed
             if (player.x >= 245) {
                 player.x = 245
+                moveFoodLeft()
             }
             break
         case ('ArrowDown'):
@@ -327,11 +346,12 @@ function animate() {
     // clears canvas
     ctx. clearRect(0, 0, canvas.width, canvas.height)
     createFood()
+    createApple()
+    moveAppleDown()
     drawPlayer(manateeImg, player.x, player.y, player.width, player.height)
     requestAnimationFrame(animate)
 }
 
 animate()
-// spawnTrash()
 
 document.addEventListener('keydown', movePlayer)
