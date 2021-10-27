@@ -1,178 +1,3 @@
-// const game = document.getElementById('canvas')
-// const ctx = canvas.getContext('2d')
-// const foodEaten = document.getElementById('btmRight')
-     
-// const manateeImg = new Image()
-// manateeImg.src = ('../js/images/manatee.png')
-
-// function drawPlayer(img, dX, dY, dW, dH) {
-//     ctx.drawImage(img, dX, dY, dW, dH)
-//     this.alive = true
-// }
-
-// let player = {
-//     x: 25,
-//     y: 25,
-//     width: 25,
-//     height: 12,
-//     speed: 10,
-//     alive: true
-// }
-
-// const foodImg = new Image()
-// foodImg.src = ('../js/images/foodPixil.png')
-
-// function foodElem(url, x, y) {
-//     this.url = url
-//     this.x = x
-//     this.y = y
-//     this.alive = true
-
-//     this.render = function () {
-//         ctx.drawImage(this.url, this.x, this.y,)
-//     }
-// }
-
-// const foodNum = 5
-// let foodArr = []
-
-// // loop through empty food arr
-// // for (let i = 0; i < foodNum; i++) {
-// //     foodArr.push({
-// //         x: Math.random()*300
-// //         y: Math.random()*150
-// //     })
-// // }
-
-// const appleImg = new Image()
-// appleImg.src = ('../js/images/applePixil.png')
-
-// const sodaImg = new Image()
-// sodaImg.src = ('../js/images/sodaPixil.png')
-
-// const burgerImg = new Image()
-// burgerImg.src = ('../js/images/burgerPixil.png')
-
-// function gameElem(url, x, y) {
-//     this.url = url
-//     this.x = x
-//     this.y = y
-//     this.alive = true
-
-//     this.render = function () {
-//         ctx.drawImage(this.url, this.x, this.y,)
-//     }
-// }
-
-// let foodOne = new foodElem(foodImg, 200, 100)
-// let foodTwo = new foodElem(foodImg, 275, 45)
-// let foodThree = new foodElem(foodImg, 300, 130)
-// let trashOne = new gameElem(sodaImg, 75, 0)
-// let trashTwo = new gameElem(appleImg, 150, 0)
-// let trashThree = new gameElem(sodaImg, 215, 0)
-// let trashFour = new gameElem(burgerImg, 250, -15)
-
-// // allow player to move manatee around with with arrow keys
-// let movePlayer = (e) => {
-// switch (e.key) {
-//     // left arrow
-//     case ('ArrowLeft'):
-//         player.x -= player.speed
-//         if (player.x <= 25) {
-//             player.x = 25
-//             foodOne.x += 1
-//             foodTwo.x += 1
-//             foodThree.x += 1
-//             trashOne.x += 1
-//         }
-//         break
-//     // up arrow
-//     case ('ArrowUp'):
-//         player.y -= player.speed
-//         if (player.y <= 10) {
-//             player. y = 10
-//         }
-//         break
-//     // right arrow
-//     case ('ArrowRight'):
-//         player.x += player.speed
-//         if (player.x >= 245) {
-//             player.x = 245
-//             foodOne.x -= 1
-//             foodTwo.x -= 1
-//             foodThree.x -= 1
-//             trashOne.x -= 1
-//         }
-//         break
-//     // down arrow
-//     case ('ArrowDown'):
-//         player.y += player.speed
-//         if (player.y >= 135) {
-//             player.y = 135
-//         }
-//         break
-//     }
-// }
-
-// // have trash falling down
-// let trashMove = () => {
-//     trashOne.y += Math.random()
-//     if (trashOne.y >=175) {
-//         trashOne.y = 0
-//     }
-//     trashTwo.y += .33
-//     if (trashTwo.y >=225) {
-//         trashTwo.y = 0
-//     }
-//     trashThree.y += Math.random()
-//     if (trashThree.y >= 190) {
-//         trashThree.y = 0
-//     }
-//     trashFour.y += .25
-//     if (trashFour.y >= 175) {
-//         trashFour.y = -10
-//     } 
-// }
-
-// // create collsion detection for when player collects food
-// // const detectFoodEaten = () => {
-// //     if (
-// //         player.x < foodOne.x + foodOne.width &&
-// //         player.x + player.width > foodOne.x &&
-// //         player.y < foodOne.y + foodOne.height &&
-// //         player.y + player.height > foodOne.y
-// //     ) {
-// //         foodOne.alive = false
-// //     }
-// // }
-
-// function animate() {
-//     // clears canvas
-//     ctx. clearRect(0, 0, canvas.width, canvas.height)
-//     trashOne.render()
-//     // if (foodOne.alive) {
-//     //     foodOne.render()
-//     //     detectFoodEaten()
-//     // }
-//     foodOne.render()
-//     foodTwo.render()
-//     foodThree.render()
-//     trashTwo.render()
-//     trashThree.render()
-//     trashFour.render()
-//     trashMove()
-//     drawPlayer(manateeImg, player.x, player.y, player.width, player.height)
-//     requestAnimationFrame(animate)
-// }
-
-// animate()
-
-// document.addEventListener('keydown', movePlayer)
-
-
-
-
-// ARRAYS VERSION
 const game = document.getElementById('canvas')
 const ctx = canvas.getContext('2d')
 const foodEaten = document.getElementById('btmRight')
@@ -181,40 +6,43 @@ const manateeImg = new Image()
 manateeImg.src = ('../js/images/manatee.png')
 
 // create manatee
-function drawPlayer(img, dX, dY, dW, dH) {
-    ctx.drawImage(img, dX, dY, dW, dH)
+function manatee(url, x, y, width, height) {
+    this.url = url
+    this.x = x
+    this.y = y
+    this.width = width
+    this.height = height
     this.alive = true
+
+    this.render = function() {
+        ctx.drawImage(this.url, this.x, this.y, this.width, this.height)
+    }
 }
 
-let player = {
-    x: 25,
-    y: 25,
-    width: 25,
-    height: 12,
-    speed: 10,
-    alive: true
-}
+let player = new manatee(manateeImg, 25, 25, 25, 12)
 
 const foodImg = new Image()
 foodImg.src = ('../js/images/foodPixil.png')
 
 // food class constructor
-function foodElem(url, x, y) {
+function foodElem(url, x, y, width, height) {
     this.url = url
     this.x = x
     this.y = y
+    this.width = width
+    this.height = height
     this.alive = true
 
     this.render = function() {
-        ctx.drawImage(this.url, this.x, this.y)
+        ctx.drawImage(this.url, this.x, this.y, this.width, this.height)
     }
 }
 
 // spawn 10 food items randomly on canvas
 let foodArr = []
 function addFood () {
-    for (i = 0; i <= 10; i++) {
-    let food = new foodElem(foodImg, (Math.random() * 700) + 100, (Math.random() * 132))
+    for (let i = 0; i <= 10; i++) {
+    let food = new foodElem(foodImg, (Math.random() * 700) + 100, (Math.random() * 132), 14, 18)
     foodArr.push(food)
     }
 }
@@ -242,10 +70,12 @@ const burgerImg = new Image()
 burgerImg.src = ('../js/images/burgerPixil.png')
 
 // trash class constructor
-function trashElem(url, x, y) {
+function trashElem(url, x, y, width, height) {
     this.url = url
     this.x = x
     this.y = y
+    this.width = width
+    this.height = height
     this.alive = true
 
     this.update = function() {
@@ -253,7 +83,7 @@ function trashElem(url, x, y) {
     }
 
     this.render = function () {
-        ctx.drawImage(this.url, this.x, this.y)
+        ctx.drawImage(this.url, this.x, this.y, this.width, this.height)
     }
 }
 
@@ -261,45 +91,47 @@ let appleArr = []
 let sodaArr = []
 let burgerArr = []
 
+// spawn trash at random x-axis points
 function addTrash () {
-    for (i = 0; i <= 5; i++) {
-        let apple = new trashElem(appleImg, Math.floor((Math.random() * 700)) + 100, -10)
+    for (let i = 0; i <= 5; i++) {
+        let apple = new trashElem(appleImg, Math.floor((Math.random() * 700)) + 100, -10, 16, 18)
         appleArr.push(apple)
     }
-    for (i = 0; i <= 5; i++) {
-        let soda = new trashElem(sodaImg, Math.floor((Math.random() * 700)) + 100, -10)
+    for (let i = 0; i <= 5; i++) {
+        let soda = new trashElem(sodaImg, Math.floor((Math.random() * 700)) + 100, -10, 15, 19)
         sodaArr.push(soda)
     }
-    for (i = 0; i <= 5; i++) {
-        let burger = new trashElem(burgerImg, Math.floor((Math.random() * 700)) + 100, -10)
+    for (let i = 0; i <= 5; i++) {
+        let burger = new trashElem(burgerImg, Math.floor((Math.random() * 700)) + 100, -10, 17, 16)
         burgerArr.push(burger)
     }
 }
 
+// have trash falling down screen at different speeds
 function fallingTrash () {
-    for (i = 0; i < appleArr.length; i++) {
+    for (let i = 0; i < appleArr.length; i++) {
         if (player.alive) {
             appleArr[i].y += (Math.random())
-            if (appleArr[i].y > 150) {
-                appleArr[i].y = 0
+            if (appleArr[i].y > 170) {
+                appleArr[i].y = -15
                 fallingTrash()
             }
         }
     }
-    for (i = 0; i < sodaArr.length; i++) {
+    for (let i = 0; i < sodaArr.length; i++) {
         if (player.alive) {
             sodaArr[i].y += (Math.random())
-            if (sodaArr[i].y > 150) {
-                sodaArr[i].y = 0
+            if (sodaArr[i].y > 190) {
+                sodaArr[i].y = -0
                 fallingTrash()
             }
         }
     }
-    for (i = 0; i < sodaArr.length; i++) {
+    for (let i = 0; i < burgerArr.length; i++) {
         if (player.alive) {
             burgerArr[i].y += (Math.random())
-            if (burgerArr[i].y > 150) {
-                burgerArr[i].y = 0
+            if (burgerArr[i].y > 200) {
+                burgerArr[i].y = -25
                 fallingTrash()
             }
         }
@@ -337,22 +169,22 @@ function createTrash() {
 
 // have game elem move in the opposite direction when player hits breakpoint
 function moveGameElemRight () {
-    for (i = 0; i < foodArr.length; i++) {
+    for (let i = 0; i < foodArr.length; i++) {
         if (player.x <= 25) {
             foodArr[i].x += 1
         }
     }
-    for (i = 0; i < appleArr.length; i++) {
+    for (let i = 0; i < appleArr.length; i++) {
         if (player.x <= 25) {
             appleArr[i].x += 1
         }
     }
-    for (i = 0; i < sodaArr.length; i++) {
+    for (let i = 0; i < sodaArr.length; i++) {
         if (player.x <= 25) {
             sodaArr[i].x += 1
         }
     }
-    for (i = 0; i < burgerArr.length; i++) {
+    for (let i = 0; i < burgerArr.length; i++) {
         if (player.x <= 25) {
             burgerArr[i].x += 1
         }
@@ -360,22 +192,22 @@ function moveGameElemRight () {
 }
 
 function moveGameElemLeft () {
-    for (i = 0; i < foodArr.length; i++) {
+    for (let i = 0; i < foodArr.length; i++) {
         if (player.x >= 245) {
             foodArr[i].x -= 1
         }
     }
-    for (i = 0; i < appleArr.length; i++) {
+    for (let i = 0; i < appleArr.length; i++) {
         if (player.x >= 245) {
             appleArr[i].x -= 1
         }
     }
-    for (i = 0; i < sodaArr.length; i++) {
+    for (let i = 0; i < sodaArr.length; i++) {
         if (player.x >= 245) {
             sodaArr[i].x -= 1
         }
     }
-    for (i = 0; i < burgerArr.length; i++) {
+    for (let i = 0; i < burgerArr.length; i++) {
         if (player.x >= 245) {
             burgerArr[i].x -= 1
         }
@@ -386,47 +218,74 @@ function moveGameElemLeft () {
 let movePlayer = (e) => {
     switch (e.key) {
         case ('ArrowLeft'):
-            player.x -= player.speed
+            player.x -= 10
             if (player.x <= 25) {
                 player.x = 25
                 moveGameElemRight()
             }
             break
         case ('ArrowUp'):
-            player.y -= player.speed
+            player.y -= 10
             if (player.y <= 10) {
                 player. y = 10
             }
             break
         case ('ArrowRight'):
-            player.x += player.speed
+            player.x += 10
             if (player.x >= 245) {
                 player.x = 245
                 moveGameElemLeft()
             }
             break
         case ('ArrowDown'):
-            player.y += player.speed
+            player.y += 10
             if (player.y >= 135) {
                 player.y = 135
             }
     }
 }
 
-// Refactor my collision detection so that it has a param to reuse for multiple items
+
+// set conditions for collision detection 
+
+// const detectFoodEaten = (foodItem) => {
+    //     foodArr.forEach
+
+// create collision detection for when player collects food
+const detectFoodEaten = () => {
+    for (let i = 0; i < foodArr.length; i++) {
+        if (
+            player.x < foodArr[i].x + foodArr[i].width &&
+            player.x + player.width > foodArr[i].x &&
+            player.y < foodArr[i].y + foodArr[i].height &&
+            player.y + player.height > foodArr[i].y
+        ) {
+            // eat the food
+            foodArr[i].alive = false
+            foodArr.splice[i]
+        }
+    }
+}
+
+// Refactor my collision detection so that it has a param to reuse for multiple items (for each loop?)
+
 // Loop over food array and call detection on each of those
-// Splice the food from the array
+// Splice the food from the array (arrName.splice[i])
 
 function animate() {
     // clears canvas
     ctx. clearRect(0, 0, canvas.width, canvas.height)
-    createFood()
     createTrash()
     fallingTrash()
-    drawPlayer(manateeImg, player.x, player.y, player.width, player.height)
+    if (player.alive) {
+        createFood()
+        detectFoodEaten()
+    }
+    player.render()
     requestAnimationFrame(animate)
 }
 
 animate()
 
+// let createTrashInterval = setInterval(createTrash, 1000)
 document.addEventListener('keydown', movePlayer)
