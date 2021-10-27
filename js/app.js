@@ -262,7 +262,47 @@ const detectFoodEaten = () => {
         ) {
             // eat the food
             foodArr[i].alive = false
-            foodArr.splice[i]
+            // remove food from foodArr once eaten
+            foodArr.splice([i])
+        }
+    }
+}
+
+const detectScarHit = () => {
+    for (let i = 0; i < appleArr.length; i++) {
+        if (
+            player.x < appleArr[i].x + appleArr[i].width &&
+            player.x + player.width > appleArr[i].x &&
+            player.y < appleArr[i].y + appleArr[i].height &&
+            player.y + player.height > appleArr[i].y
+        ) {
+            // eat the food
+            player.x = 25
+            player.y = 25
+        }
+    }
+    for (let i = 0; i < sodaArr.length; i++) {
+        if (
+            player.x < sodaArr[i].x + sodaArr[i].width &&
+            player.x + player.width > sodaArr[i].x &&
+            player.y < sodaArr[i].y + sodaArr[i].height &&
+            player.y + player.height > sodaArr[i].y
+        ) {
+            // eat the food
+            player.x = 25
+            player.y = 25
+        }
+    }
+    for (let i = 0; i < burgerArr.length; i++) {
+        if (
+            player.x < burgerArr[i].x + burgerArr[i].width &&
+            player.x + player.width > burgerArr[i].x &&
+            player.y < burgerArr[i].y + burgerArr[i].height &&
+            player.y + player.height > burgerArr[i].y
+        ) {
+            // eat the food
+            player.x = 25
+            player.y = 25
         }
     }
 }
@@ -275,12 +315,15 @@ const detectFoodEaten = () => {
 function animate() {
     // clears canvas
     ctx. clearRect(0, 0, canvas.width, canvas.height)
+    detectFoodEaten()
     createTrash()
     fallingTrash()
-    if (player.alive) {
-        createFood()
-        detectFoodEaten()
-    }
+    // if (player.alive) {
+    //     createFood()
+    //     detectFoodEaten()
+    // }
+    createFood()
+    detectScarHit()
     player.render()
     requestAnimationFrame(animate)
 }
