@@ -231,23 +231,6 @@ function createFood() {
         foodArr[i].render()
     }
 }
-                
-// have food move in the opposite direction when player hits breakpoint
-function moveFoodLeft () {
-    for (i = 0; i < foodArr.length; i++) {
-        if (player.x >= 245) {
-            foodArr[i].x -= 1
-        }
-    }
-}
-
-function moveFoodRight () {
-    for (i = 0; i < foodArr.length; i++) {
-        if (player.x <= 25) {
-            foodArr[i].x += 1
-        }
-    }
-}
 
 const appleImg = new Image()
 appleImg.src = ('../js/images/applePixil.png')
@@ -276,8 +259,8 @@ function trashElem(url, x, y) {
 
 let appleArr = []
 function addApple () {
-    for (i = 0; i <= 10; i++) {
-    let apple = new trashElem(appleImg, (Math.random() * 700) + 100, -10)
+    for (i = 0; i <= 15; i++) {
+    let apple = new trashElem(appleImg, Math.floor((Math.random() * 700)) + 100, -10)
     appleArr.push(apple)
     }
 }
@@ -285,7 +268,7 @@ function addApple () {
 function moveAppleDown () {
     for (i = 0; i < appleArr.length; i++) {
         if (player.alive) {
-            appleArr[i].y += .25
+            appleArr[i].y += (Math.random())
             if (appleArr[i].y > 150) {
                 appleArr[i].y = 0
                 moveAppleDown()
@@ -307,6 +290,33 @@ function createApple() {
     }
 }
 
+// have game elem move in the opposite direction when player hits breakpoint
+function moveGameElemRight () {
+    for (i = 0; i < foodArr.length; i++) {
+        if (player.x <= 25) {
+            foodArr[i].x += 1
+        }
+    }
+    for (i = 0; i < appleArr.length; i++) {
+        if (player.x <= 25) {
+            appleArr[i].x += 1
+        }
+    }
+}
+
+function moveGameElemLeft () {
+    for (i = 0; i < foodArr.length; i++) {
+        if (player.x >= 245) {
+            foodArr[i].x -= 1
+        }
+    }
+    for (i = 0; i < appleArr.length; i++) {
+        if (player.x >= 245) {
+            appleArr[i].x -= 1
+        }
+    }
+}
+
 // allow player to move manatee with arrow keys
 let movePlayer = (e) => {
     switch (e.key) {
@@ -314,7 +324,7 @@ let movePlayer = (e) => {
             player.x -= player.speed
             if (player.x <= 25) {
                 player.x = 25
-                moveFoodRight()
+                moveGameElemRight()
             }
             break
         case ('ArrowUp'):
@@ -327,7 +337,7 @@ let movePlayer = (e) => {
             player.x += player.speed
             if (player.x >= 245) {
                 player.x = 245
-                moveFoodLeft()
+                moveGameElemLeft()
             }
             break
         case ('ArrowDown'):
