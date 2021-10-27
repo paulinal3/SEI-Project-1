@@ -47,10 +47,8 @@ const newFoodX = () => {
 // spawn 10 food items randomly on canvas
 let foodArr = []
 function addFood () {
-    // for (let i = 0; i <= 10; i++) {
     let food = new gameElem(foodImg, newFoodX(), (Math.random() * 132), 14, 18)
     foodArr.push(food)
-    // }
 }
 
 for (let i = 0; i <= 10; i++) {
@@ -58,17 +56,6 @@ for (let i = 0; i <= 10; i++) {
 }
 
 console.log('this is the foodArr\n', foodArr)
-
-// being called down in animate function
-// function createFood() {
-//     // if (foodArr.length <= 10) {
-//     //     addFood()
-//     // }
-//     // Loop over each array to render each item
-//     for (let i = 0; i < foodArr.length; i++) {
-//         foodArr[i].render()
-//     }
-// }
 
 const appleImg = new Image()
 appleImg.src = ('../js/images/applePixil.png')
@@ -243,8 +230,6 @@ let movePlayer = (e) => {
     }
 }
 
-// set conditions for collision detection 
-
 // const detectFoodEaten = (foodItem) => {
     //     foodArr.forEach
 
@@ -260,11 +245,12 @@ const detectFoodEaten = () => {
             // eat the food
             foodArr[i].alive = false
             // remove food from foodArr once eaten
-            foodArr.splice([i])
+            foodArr.splice([i], 1)
         }
     }
 }
 
+// checks if food is eaten
 const removeFoodEaten = () => {
     for (let i = 0; i < foodArr.length; i++) {
         if (foodArr[i].alive) {
@@ -307,8 +293,9 @@ const detectTrashHit = () => {
     }
 }
 
-// Refactor my collision detection so that it has a param to reuse for multiple items (for each loop?)
+// set conditions for collision detection 
 
+// Refactor my collision detection so that it has a param to reuse for multiple items (for each loop?)
 // Loop over food array and call detection on each of those
 
 // keep track of scars and add one each time a hit is detected
@@ -324,16 +311,12 @@ function animate() {
     // detectFoodEaten()
     createTrash()
     fallingTrash()
-    // if (player.alive) {
-    //     createFood()
-    //     detectFoodEaten()
-    // }
     // createFood()
     removeFoodEaten()
     if (detectTrashHit() === true) {
         player.x = 25
         player.y = 25
-        scarTally.innerText = `Scar Tally: ${scarHit()}`
+        scarTally.innerText = `Scar Hits: ${scarHit()}`
         if (scars === 3) {
             hungerMeter.innerText = 'Game Over!'
         }
