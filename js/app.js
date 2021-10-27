@@ -1,6 +1,7 @@
 const game = document.getElementById('canvas')
 const ctx = canvas.getContext('2d')
-const foodEaten = document.getElementById('btmRight')
+let hungerMeter = document.getElementById('btmRight')
+let scarTally = document.getElementById('btmLeft')
      
 const manateeImg = new Image()
 manateeImg.src = ('../js/images/manatee.png')
@@ -268,7 +269,7 @@ const detectFoodEaten = () => {
     }
 }
 
-const detectScarHit = () => {
+const detectTrashHit = () => {
     for (let i = 0; i < appleArr.length; i++) {
         if (
             player.x < appleArr[i].x + appleArr[i].width &&
@@ -276,9 +277,7 @@ const detectScarHit = () => {
             player.y < appleArr[i].y + appleArr[i].height &&
             player.y + player.height > appleArr[i].y
         ) {
-            // eat the food
-            player.x = 25
-            player.y = 25
+            return true
         }
     }
     for (let i = 0; i < sodaArr.length; i++) {
@@ -288,9 +287,7 @@ const detectScarHit = () => {
             player.y < sodaArr[i].y + sodaArr[i].height &&
             player.y + player.height > sodaArr[i].y
         ) {
-            // eat the food
-            player.x = 25
-            player.y = 25
+            return true
         }
     }
     for (let i = 0; i < burgerArr.length; i++) {
@@ -300,9 +297,7 @@ const detectScarHit = () => {
             player.y < burgerArr[i].y + burgerArr[i].height &&
             player.y + player.height > burgerArr[i].y
         ) {
-            // eat the food
-            player.x = 25
-            player.y = 25
+            return true
         }
     }
 }
@@ -310,7 +305,12 @@ const detectScarHit = () => {
 // Refactor my collision detection so that it has a param to reuse for multiple items (for each loop?)
 
 // Loop over food array and call detection on each of those
-// Splice the food from the array (arrName.splice[i])
+
+let scars = 0
+const scarHit = () => {
+    console.log(scars)
+    return scars += 1
+}
 
 function animate() {
     // clears canvas
@@ -323,7 +323,12 @@ function animate() {
     //     detectFoodEaten()
     // }
     createFood()
-    detectScarHit()
+    // detectTrashHit()
+    if (detectTrashHit() === true) {
+        player.x = 25
+        player.y = 25
+        scarTally.innerText = `Scar Tally: ${scarHit()}`
+    }
     player.render()
     requestAnimationFrame(animate)
 }
