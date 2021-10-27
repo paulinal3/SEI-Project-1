@@ -258,35 +258,59 @@ function trashElem(url, x, y) {
 }
 
 let appleArr = []
-function addApple () {
+let sodaArr = []
+let burgerArr = []
+
+function addTrash () {
     for (i = 0; i <= 15; i++) {
-    let apple = new trashElem(appleImg, Math.floor((Math.random() * 700)) + 100, -10)
-    appleArr.push(apple)
+        let apple = new trashElem(appleImg, Math.floor((Math.random() * 700)) + 100, -10)
+        appleArr.push(apple)
+    }
+    for (i = 0; i <= 15; i++) {
+        let soda = new trashElem(sodaImg, Math.floor((Math.random() * 700)) + 100, -10)
+        sodaArr.push(soda)
     }
 }
 
-function moveAppleDown () {
+function fallingTrash () {
     for (i = 0; i < appleArr.length; i++) {
         if (player.alive) {
             appleArr[i].y += (Math.random())
             if (appleArr[i].y > 150) {
                 appleArr[i].y = 0
-                moveAppleDown()
+                fallingTrash()
+            }
+        }
+    }
+    for (i = 0; i < sodaArr.length; i++) {
+        if (player.alive) {
+            sodaArr[i].y += (Math.random())
+            if (sodaArr[i].y > 150) {
+                sodaArr[i].y = 0
+                fallingTrash()
             }
         }
     }
 }
 
 console.log('this is the appleArr\n', appleArr)
+console.log('this is the sodaArr\n', sodaArr)
 
 // being called down in animate function
-function createApple() {
-    if (appleArr.length <= 10) {
-        addApple()
+function createTrash() {
+    if (appleArr.length <= 5) {
+        addTrash()
     }
     // Loop over each array to render each item
     for (let i = 0; i < appleArr.length; i++) {
         appleArr[i].render()
+    }
+    if (sodaArr.length <= 5) {
+        addTrash()
+    }
+    // Loop over each array to render each item
+    for (let i = 0; i < sodaArr.length; i++) {
+        sodaArr[i].render()
     }
 }
 
@@ -302,6 +326,11 @@ function moveGameElemRight () {
             appleArr[i].x += 1
         }
     }
+    for (i = 0; i < sodaArr.length; i++) {
+        if (player.x <= 25) {
+            sodaArr[i].x += 1
+        }
+    }
 }
 
 function moveGameElemLeft () {
@@ -313,6 +342,11 @@ function moveGameElemLeft () {
     for (i = 0; i < appleArr.length; i++) {
         if (player.x >= 245) {
             appleArr[i].x -= 1
+        }
+    }
+    for (i = 0; i < sodaArr.length; i++) {
+        if (player.x >= 245) {
+            sodaArr[i].x -= 1
         }
     }
 }
@@ -356,8 +390,8 @@ function animate() {
     // clears canvas
     ctx. clearRect(0, 0, canvas.width, canvas.height)
     createFood()
-    createApple()
-    moveAppleDown()
+    createTrash()
+    fallingTrash()
     drawPlayer(manateeImg, player.x, player.y, player.width, player.height)
     requestAnimationFrame(animate)
 }
