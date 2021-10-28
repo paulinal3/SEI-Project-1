@@ -1,7 +1,8 @@
 const game = document.getElementById('canvas')
 const ctx = canvas.getContext('2d')
-let startMenu = document.getElementById('start')
-let endMenu = document.getElementById('gameOver')
+const startMenu = document.getElementById('start')
+const endMenu = document.getElementById('gameOver')
+const winEndMenu = document.getElementById('gameWin')
 let hungerMeter = document.getElementById('btmRight')
 let scarTally = document.getElementById('btmLeft')
 
@@ -17,9 +18,18 @@ function gameEnds() {
     startMenu.style.display = 'none'
     game.style.display = 'none'
     endMenu.style.display = 'block'
-    backgroundSound.pause()
+    backgroundSound.stop()
     hungerMeter.innerText = 'Hunger Meter'
     scarTally = 'Scar Hits'
+}
+
+function gameWins() {
+    startMenu.style.display = 'none'
+    game.style.display = 'none'
+    endMenu.style.display = 'none'
+    winEndMenu.style.display = 'block'
+    backgroundSound.stop()
+    hungerMeter.innerText = 'Hunger Meter'
 }
 
 const manateeImg = new Image()
@@ -344,6 +354,7 @@ function gameOver() {
 
 function playerWins() {
     if (scars < 3 && foodArr === []) {
+        gameWins()
     }
 }
 
