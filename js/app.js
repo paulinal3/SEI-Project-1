@@ -54,7 +54,7 @@ function addFood () {
 }
 
 // spawn 10 food items randomly on canvas
-for (let i = 0; i <= 10; i++) {
+for (let i = 0; i < 10; i++) {
     addFood()
 }
 
@@ -273,6 +273,7 @@ const removeFoodEaten = () => {
             }
         }
     }
+    return true
 }
 
 // crete collision detection for when player hits trash
@@ -316,23 +317,64 @@ const scarHit = () => {
     return scars += 1
 }
 
-function gameOver () {
-    if (scars === 3) {
-        cancelAnimationFrame(animate)
+function gameOver() {
+    if (scars >= 3) {
+        // cancelAnimationFrame(animate)
+        stopGameLoop()
         document.removeEventListener('keydown,', movePlayer)
-        hungerMeter.innerText = 'Game Over!'
+        hungerMeter.innerText = 'Game Over! Manny was hit too many times and died :('
     }
-
+    return true
 }
+
+function playerWins() {
+    if (scars < 3 && foodArr === []) {
+        // cancelAnimationFrame(animate)
+        stopGameLoop()
+        document.removeEventListener('keydown', movePlayer)
+        hungerMeter.innerText = `Winner Winner, you helped Manny eat all his dinner! He lives another day!`
+    }
+    return true
+}
+
+// function animate() {
+//     // clears canvas
+//     ctx. clearRect(0, 0, canvas.width, canvas.height)
+//     createTrash()
+//     fallingTrash()
+//     if (removeFoodEaten() === true) {
+//         playerWins()
+//     }
+//     player.render()
+//     requestAnimationFrame(animate)
+//     // moves player back to start when hit by trash
+//     if (detectTrashHit() === true) {
+//         trashHitSound.play()
+//         player.x = 25
+//         player.y = 25
+//         // tallying up each scar hit
+//         scarTally.innerText = `Scar Hits: ${scarHit()}`
+//         gameOver()
+//         // if (scars === 3) {
+//         //     gameOver()
+//         //     hungerMeter.innerText = 'Game Over!'
+//         // }
+//     }
+//     // if (gameOver() === true || playerWins() === true) {
+//     //     cancelAnimationFrame(animate)
+//     //     document.removeEventListener('keydown,', movePlayer)
+//     // }
+// }
 
 function animate() {
     // clears canvas
     ctx. clearRect(0, 0, canvas.width, canvas.height)
     createTrash()
     fallingTrash()
-    removeFoodEaten()
+    if (removeFoodEaten() === true) {
+        playerWins()
+    }
     player.render()
-    requestAnimationFrame(animate)
     // moves player back to start when hit by trash
     if (detectTrashHit() === true) {
         trashHitSound.play()
@@ -341,14 +383,24 @@ function animate() {
         // tallying up each scar hit
         scarTally.innerText = `Scar Hits: ${scarHit()}`
         gameOver()
-        // if (scars === 3) {
-        //     gameOver()
-        //     hungerMeter.innerText = 'Game Over!'
-        // }
     }
 }
 
-animate()
+let stopGameLoop = () => {clearInterval(gameInterval)}
+
+let gameInterval = setInterval(animate, 20)
+
+// document.addEventListener('DOMContentLoaded', () => {
+//     animate()
+// })
+// animate()
+
+// if (gameOver() === true || playerWins() === true) {
+//     cancelAnimationFrame(animate)
+//     document.removeEventListener('keydown,', movePlayer)
+//     } else {
+//         animate()
+// }
 
 // sound effects
 function sound(src) {
@@ -368,5 +420,29 @@ function sound(src) {
 
 foodEatenSound = new sound('../js/sounds/foodEatenSound.mp3')
 trashHitSound = new sound('../js/sounds/trashHitSound.mp3')
+
+// // hunger meter bar
+// function HungerBar(x, y, width, height, color, maxHunger) {
+//     this.x = x
+//     this.y = y
+//     this.width = width
+//     this.height = height
+//     this.maxwidth = width
+//     this.color = color
+//     this.maxHunger = maxHunger
+
+//     this.render = function () {
+//         ctx.fillstyle = this.color
+//         ctx.fillRect(this.x, this.y, this. width, this.height)
+//     }
+// }
+
+// let hunger = 0
+// const hungerBarWidth = 200
+// const hungerBarHeight = 25
+// const x = 100
+// const y = 132
+
+// const hungerBar = new HungerBar(x, y, hungerBarWidth, hungerBarHeight, 'blue', hunger)
 
 document.addEventListener('keydown', movePlayer)
