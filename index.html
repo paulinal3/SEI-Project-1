@@ -10,13 +10,21 @@
 </head>
 <body>
     <h1>Save Manny!</h1>
-    <div id="gameContainer">
+    <div id = "gameContainer">
         <main>
-            <canvas id="canvas"></canvas>
-            <div id="start" style="display: block"></div>
+            <canvas id = "canvas" style = "display: none"></canvas>
+            <div id = "start" style = "display: block">
+                <h2>Do You Have the Humanatee?</h2>
+                <h3>Manatees are in danger of being put back on the endagered species lists! Using the arrow keys, help Manny find enough food without getting scars from the falling trash. Get three scars and Manny will die!</h3>
+                <a href = "#" onclick = "startGame()">Start Game</a>
+            </div>
+            <div id = "gameOver" style = "display: none">
+                <h1>Game Over</h1>
+                <a href = "#" onclick = "startGame()"> Start Game</a>
+            </div>
         </main>
-        <aside id="btmLeft">Scar Hits</aside>
-        <aside id="btmRight">Hunger Meter</aside>
+        <aside id = "btmLeft">Scar Hits</aside>
+        <aside id = "btmRight">Hunger Meter</aside>
     </div>
     <script src="js/app.js"></script>
 </body>

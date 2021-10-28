@@ -9,7 +9,7 @@ body {
     flex-direction: column;
 }
 
-h1 {
+h1, h2, h3 {
     font-family: 'Chelsea Market', cursive;
     text-align: center;
     color: #def3f6;
@@ -41,7 +41,39 @@ canvas {
 
 main {
     grid-area: game;
+    text-align: center;
 }
+
+#start #gameOver {
+    font-family: 'Chelsea Market', cursive;
+    /* padding: 20px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -100px;
+    margin-left: -100px; */
+    height: 200px;
+    width: 250px;
+    text-align: center;
+}
+
+#start a, #gameOver a {
+    font-family: 'Chelsea Market', cursive;
+    border: 3px solid #def3f6;
+    color:#def3f6;
+    text-decoration: none;
+    padding: 8px;
+    border-radius: 15px;
+    cursor: pointer;
+    display: block;
+    width: 150px;
+    text-align: center;
+    font-size: 25px;
+    display: inline-block;
+    margin-bottom: 30px;
+}
+
+#start a:hover, #game-over a:hover { background-color: #ffffff; color: #1bafdb; }
 
 aside {
     border: 10px solid #def3f6;

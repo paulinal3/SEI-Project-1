@@ -1,7 +1,22 @@
 const game = document.getElementById('canvas')
 const ctx = canvas.getContext('2d')
+let startMenu = document.getElementById('start')
+let endMenu = document.getElementById('gameOver')
 let hungerMeter = document.getElementById('btmRight')
 let scarTally = document.getElementById('btmLeft')
+
+function startGame() {
+    startMenu.style.display = 'none'
+    game.style.display = 'block'
+    endMenu.style.display = 'none'
+    animate()
+}
+
+function gameEnds() {
+    startMenu.style.display = 'none'
+    game.style.display = 'none'
+    endMenu.style.display = 'block'
+}
 
 const manateeImg = new Image()
 manateeImg.src = ('../js/images/manatee.png')
@@ -320,8 +335,9 @@ const scarHit = () => {
 function gameOver() {
     if (scars >= 3) {
         // cancelAnimationFrame(animate)
-        stopGameLoop()
+        // stopGameLoop()
         document.removeEventListener('keydown,', movePlayer)
+        endMenu()
         hungerMeter.innerText = 'Game Over! Manny was hit too many times and died :('
     }
     return true
@@ -330,7 +346,7 @@ function gameOver() {
 function playerWins() {
     if (scars < 3 && foodArr === []) {
         // cancelAnimationFrame(animate)
-        stopGameLoop()
+        // stopGameLoop()
         document.removeEventListener('keydown', movePlayer)
         hungerMeter.innerText = `Winner Winner, you helped Manny eat all his dinner! He lives another day!`
     }
