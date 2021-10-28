@@ -231,9 +231,6 @@ let movePlayer = (e) => {
     }
 }
 
-// const detectFoodEaten = (foodItem) => {
-    //     foodArr.forEach
-
 // create collision detection for when player collects food
 const detectFoodEaten = () => {
     for (let i = 0; i < foodArr.length; i++) {
@@ -247,9 +244,23 @@ const detectFoodEaten = () => {
             foodArr[i].alive = false
             // remove food from foodArr once eaten
             foodArr.splice([i], 1)
+            foodEatenSound.play()
             return true
         }
     }
+}
+
+// keep track of hunger meter
+let numFoodEaten = 0
+const foodEaten = () => {
+    console.log(numFoodEaten)
+    return numFoodEaten += 1
+}
+
+let numFoodLeft = 10
+const foodLeft = () => {
+    console.log(numFoodLeft)
+    return numFoodLeft -= 1
 }
 
 // checks if food is eaten
@@ -298,22 +309,6 @@ const detectTrashHit = () => {
     }
 }
 
-// set conditions for collision detection 
-
-// Refactor my collision detection so that it has a param to reuse for multiple items (for each loop?)
-// Loop over food array and call detection on each of those
-let numFoodEaten = 0
-const foodEaten = () => {
-    console.log(numFoodEaten)
-    return numFoodEaten += 1
-}
-
-let numFoodLeft = 10
-const foodLeft = () => {
-    console.log(numFoodLeft)
-    return numFoodLeft -= 1
-}
-
 // keep track of scars and add one each time a hit is detected
 let scars = 0
 const scarHit = () => {
@@ -322,8 +317,12 @@ const scarHit = () => {
 }
 
 function gameOver () {
-    cancelAnimationFrame(animate)
-    document.removeEventListener('keydown,', movePlayer)
+    if (scars === 3) {
+        cancelAnimationFrame(animate)
+        document.removeEventListener('keydown,', movePlayer)
+        hungerMeter.innerText = 'Game Over!'
+    }
+
 }
 
 function animate() {
@@ -336,17 +335,38 @@ function animate() {
     requestAnimationFrame(animate)
     // moves player back to start when hit by trash
     if (detectTrashHit() === true) {
+        trashHitSound.play()
         player.x = 25
         player.y = 25
         // tallying up each scar hit
         scarTally.innerText = `Scar Hits: ${scarHit()}`
-        if (scars === 3) {
-            gameOver()
-            hungerMeter.innerText = 'Game Over!'
-        }
+        gameOver()
+        // if (scars === 3) {
+        //     gameOver()
+        //     hungerMeter.innerText = 'Game Over!'
+        // }
     }
 }
 
 animate()
+
+// sound effects
+function sound(src) {
+    this.sound = document.createElement('audio')
+    this.sound.src = src
+    this.sound.setAttribute('preload', 'auto')
+    this.sound.setAttribute('controls', 'none')
+    this.sound.style.display = 'none'
+    document.body.appendChild(this.sound)
+    this.play = function() {
+        this.sound.play()
+    }
+    this.stop = function() {
+        this.sound.pause()
+    }
+}
+
+foodEatenSound = new sound('../js/sounds/foodEatenSound.mp3')
+trashHitSound = new sound('../js/sounds/trashHitSound.mp3')
 
 document.addEventListener('keydown', movePlayer)
