@@ -38,19 +38,22 @@ function gameElem(url, x, y, width, height) {
         ctx.drawImage(this.url, this.x, this.y, this.width, this.height)
     }
 }
+
+// giving first food a random x coordinate and then adding 125 to each food created after
 let foodX = Math.floor((Math.random() * 25 + 25))
 const newFoodX = () => {
     // console.log(foodX)
     return foodX += 125
 }
 
-// spawn 10 food items randomly on canvas
 let foodArr = []
+// adding each food too foodArr
 function addFood () {
     let food = new gameElem(foodImg, newFoodX(), (Math.random() * 132), 14, 18)
     foodArr.push(food)
 }
 
+// spawn 10 food items randomly on canvas
 for (let i = 0; i <= 10; i++) {
     addFood()
 }
@@ -139,14 +142,12 @@ function createTrash() {
     if (sodaArr.length <= 5) {
         addTrash()
     }
-    // Loop over each array to render each item
     for (let i = 0; i < sodaArr.length; i++) {
         sodaArr[i].render()
     }
     if (burgerArr.length <= 5) {
         addTrash()
     }
-    // Loop over each array to render each item
     for (let i = 0; i < burgerArr.length; i++) {
         burgerArr[i].render()
     }
@@ -246,6 +247,7 @@ const detectFoodEaten = () => {
             foodArr[i].alive = false
             // remove food from foodArr once eaten
             foodArr.splice([i], 1)
+            return true
         }
     }
 }
@@ -255,11 +257,14 @@ const removeFoodEaten = () => {
     for (let i = 0; i < foodArr.length; i++) {
         if (foodArr[i].alive) {
             foodArr[i].render()
-            detectFoodEaten()
+            if (detectFoodEaten() === true) {
+                hungerMeter.innerText = `Hunger Meter: ${foodEaten()} eaten, ${foodLeft()} to go!`
+            }
         }
     }
 }
 
+// crete collision detection for when player hits trash
 const detectTrashHit = () => {
     for (let i = 0; i < appleArr.length; i++) {
         if (
@@ -297,6 +302,17 @@ const detectTrashHit = () => {
 
 // Refactor my collision detection so that it has a param to reuse for multiple items (for each loop?)
 // Loop over food array and call detection on each of those
+let numFoodEaten = 0
+const foodEaten = () => {
+    console.log(numFoodEaten)
+    return numFoodEaten += 1
+}
+
+let numFoodLeft = 10
+const foodLeft = () => {
+    console.log(numFoodLeft)
+    return numFoodLeft -= 1
+}
 
 // keep track of scars and add one each time a hit is detected
 let scars = 0
@@ -305,24 +321,30 @@ const scarHit = () => {
     return scars += 1
 }
 
+function gameOver () {
+    cancelAnimationFrame(animate)
+    document.removeEventListener('keydown,', movePlayer)
+}
+
 function animate() {
     // clears canvas
     ctx. clearRect(0, 0, canvas.width, canvas.height)
-    // detectFoodEaten()
     createTrash()
     fallingTrash()
-    // createFood()
     removeFoodEaten()
+    player.render()
+    requestAnimationFrame(animate)
+    // moves player back to start when hit by trash
     if (detectTrashHit() === true) {
         player.x = 25
         player.y = 25
+        // tallying up each scar hit
         scarTally.innerText = `Scar Hits: ${scarHit()}`
         if (scars === 3) {
+            gameOver()
             hungerMeter.innerText = 'Game Over!'
         }
     }
-    player.render()
-    requestAnimationFrame(animate)
 }
 
 animate()
