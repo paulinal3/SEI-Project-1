@@ -10,12 +10,16 @@ function startGame() {
     game.style.display = 'block'
     endMenu.style.display = 'none'
     animate()
+    backgroundSound.play()
 }
 
 function gameEnds() {
     startMenu.style.display = 'none'
     game.style.display = 'none'
     endMenu.style.display = 'block'
+    backgroundSound.pause()
+    hungerMeter.innerText = 'Hunger Meter'
+    scarTally = 'Scar Hits'
 }
 
 const manateeImg = new Image()
@@ -334,53 +338,14 @@ const scarHit = () => {
 
 function gameOver() {
     if (scars >= 3) {
-        // cancelAnimationFrame(animate)
-        // stopGameLoop()
-        document.removeEventListener('keydown,', movePlayer)
-        endMenu()
-        hungerMeter.innerText = 'Game Over! Manny was hit too many times and died :('
+        gameEnds()
     }
-    return true
 }
 
 function playerWins() {
     if (scars < 3 && foodArr === []) {
-        // cancelAnimationFrame(animate)
-        // stopGameLoop()
-        document.removeEventListener('keydown', movePlayer)
-        hungerMeter.innerText = `Winner Winner, you helped Manny eat all his dinner! He lives another day!`
     }
-    return true
 }
-
-// function animate() {
-//     // clears canvas
-//     ctx. clearRect(0, 0, canvas.width, canvas.height)
-//     createTrash()
-//     fallingTrash()
-//     if (removeFoodEaten() === true) {
-//         playerWins()
-//     }
-//     player.render()
-//     requestAnimationFrame(animate)
-//     // moves player back to start when hit by trash
-//     if (detectTrashHit() === true) {
-//         trashHitSound.play()
-//         player.x = 25
-//         player.y = 25
-//         // tallying up each scar hit
-//         scarTally.innerText = `Scar Hits: ${scarHit()}`
-//         gameOver()
-//         // if (scars === 3) {
-//         //     gameOver()
-//         //     hungerMeter.innerText = 'Game Over!'
-//         // }
-//     }
-//     // if (gameOver() === true || playerWins() === true) {
-//     //     cancelAnimationFrame(animate)
-//     //     document.removeEventListener('keydown,', movePlayer)
-//     // }
-// }
 
 function animate() {
     // clears canvas
@@ -406,18 +371,6 @@ let stopGameLoop = () => {clearInterval(gameInterval)}
 
 let gameInterval = setInterval(animate, 20)
 
-// document.addEventListener('DOMContentLoaded', () => {
-//     animate()
-// })
-// animate()
-
-// if (gameOver() === true || playerWins() === true) {
-//     cancelAnimationFrame(animate)
-//     document.removeEventListener('keydown,', movePlayer)
-//     } else {
-//         animate()
-// }
-
 // sound effects
 function sound(src) {
     this.sound = document.createElement('audio')
@@ -436,6 +389,7 @@ function sound(src) {
 
 foodEatenSound = new sound('../js/sounds/foodEatenSound.mp3')
 trashHitSound = new sound('../js/sounds/trashHitSound.mp3')
+backgroundSound = new sound('../js/sounds/backgroundMusic.mp3')
 
 // // hunger meter bar
 // function HungerBar(x, y, width, height, color, maxHunger) {

@@ -14,14 +14,21 @@
         <main>
             <canvas id = "canvas" style = "display: none"></canvas>
             <div id = "start" style = "display: block">
+                <!-- <img src = "css/images/manny.png" alt = "Little Mermaid Looking Manatee"> -->
                 <h2>Do You Have the Humanatee?</h2>
-                <h3>Manatees are in danger of being put back on the endagered species lists! Using the arrow keys, help Manny find enough food without getting scars from the falling trash. Get three scars and Manny will die!</h3>
+                <h3>Manatees are in danger of being put back on the endagered species list!<br><br>Use the arrow keys to move Manny around <img src = "js/images/manatee.png" alt = "manatee player"><br>Help Manny collect enough food <img src = "js/images/foodPixil.png" alt = "manatee food"><br>Be sure to avoid the falling trash! <img src = "js/images/applePixil.png" alt = "bitten apple"> <img src = "js/images/sodaPixil.png" alt = "crushed soda can"> <img src = "js/images/burgerPixil.png" alt = "burger"><br>If you're hit by trash, you'll scar Manny. Three scars and Manny will die!</h3>
                 <a href = "#" onclick = "startGame()">Start Game</a>
             </div>
             <div id = "gameOver" style = "display: none">
-                <h1>Game Over</h1>
-                <a href = "#" onclick = "startGame()"> Start Game</a>
+                <h1>Game Over!</h1>
+                <h2>killed Manny! He was hit too many scars and died<br><br><img src = "css/images/deadManny.png" alt = "dead manatee player"></h2>
+                <a href = "#" onclick = "startGame()">Try Again!</a>
             </div>
+            <!-- </div>
+            <div id = "gameWin" style = "display: none">
+                <h1>Winner Winner! You helped Manny eat all his dinner! He lives another day!</h1>
+                <a href = "#" onclick = "startGame()">Play Again!</a>
+            </div> -->
         </main>
         <aside id = "btmLeft">Scar Hits</aside>
         <aside id = "btmRight">Hunger Meter</aside>

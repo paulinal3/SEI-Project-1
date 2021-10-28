@@ -15,6 +15,12 @@ h1, h2, h3 {
     color: #def3f6;
 }
 
+/* h2, h3 {
+    width: 80%;
+    height: 100%;
+    text-align: center;
+} */
+
 #gameContainer {
     width: 80%;
     height: 80%;
@@ -46,12 +52,12 @@ main {
 
 #start #gameOver {
     font-family: 'Chelsea Market', cursive;
-    /* padding: 20px;
+    padding: 20px;
     position: fixed;
     top: 50%;
     left: 50%;
     margin-top: -100px;
-    margin-left: -100px; */
+    margin-left: -100px;
     height: 200px;
     width: 250px;
     text-align: center;
