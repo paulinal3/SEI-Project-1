@@ -13,13 +13,13 @@ function startGame() {
     game.style.display = 'block'
     endMenu.style.display = 'none'
     winEndMenu.style.display = 'none'
-    animate()
     gameName.style.display = 'none'
     backgroundSound.play()
 }
 
 // menu when player loses
 function gameEnds() {
+    stopGameLoop()
     gameName.style.display = 'none'
     startMenu.style.display = 'none'
     game.style.display = 'none'
@@ -27,16 +27,14 @@ function gameEnds() {
     winEndMenu.style.display = 'none'
     backgroundSound.stop()
     losingSound.play()
-    scars = 0
-    numFoodEaten = 0
-    numFoodLeft = 10
-    animate()
-    hungerMeter.innerText = 'Hunger Meter'
-    scarTally.innerText = 'Scar Hits'
+    tryAgain.addEventListener('click', () => {
+        reset()
+    })
 }
 
 // menu when play wins
 function gameWins() {
+    stopGameLoop()
     gameName.style.display = 'none'
     startMenu.style.display = 'none'
     game.style.display = 'none'
@@ -44,12 +42,13 @@ function gameWins() {
     winEndMenu.style.display = 'block'
     backgroundSound.stop()
     winnersSong.play()
-    hungerMeter.innerText = 'Hunger Meter'
-    scarTally.innerText = 'Scar Hits'
-    scars = 0
-    numFoodEaten = 0
-    numFoodLeft = 10
-    animate()
+    playAgain.addEventListener('click', () => {
+        reset()
+    })
+}
+
+function reset() {
+    location.reload()
 }
 
 const manateeImg = new Image()
@@ -148,7 +147,7 @@ function addTrash() {
 function fallingTrash() {
     for (let i = 0; i < appleArr.length; i++) {
         if (player.alive) {
-            appleArr[i].y += (Math.random() + .15)
+            appleArr[i].y += (Math.random() + .50)
             if (appleArr[i].y > 170) {
                 appleArr[i].y = -15
                 fallingTrash()
@@ -157,7 +156,7 @@ function fallingTrash() {
     }
     for (let i = 0; i < sodaArr.length; i++) {
         if (player.alive) {
-            sodaArr[i].y += (Math.random() + .25)
+            sodaArr[i].y += (Math.random() + .75)
             if (sodaArr[i].y > 190) {
                 sodaArr[i].y = -0
                 fallingTrash()
@@ -166,7 +165,7 @@ function fallingTrash() {
     }
     for (let i = 0; i < burgerArr.length; i++) {
         if (player.alive) {
-            burgerArr[i].y += (Math.random() + .50)
+            burgerArr[i].y += (Math.random() + 1)
             if (burgerArr[i].y > 200) {
                 burgerArr[i].y = -25
                 fallingTrash()
@@ -206,22 +205,22 @@ function createTrash() {
 function moveGameElemRight() {
     for (let i = 0; i < foodArr.length; i++) {
         if (player.x <= 25) {
-            foodArr[i].x += 1
+            foodArr[i].x += 2
         }
     }
     for (let i = 0; i < appleArr.length; i++) {
         if (player.x <= 25) {
-            appleArr[i].x += 1
+            appleArr[i].x += 2
         }
     }
     for (let i = 0; i < sodaArr.length; i++) {
         if (player.x <= 25) {
-            sodaArr[i].x += 1
+            sodaArr[i].x += 2
         }
     }
     for (let i = 0; i < burgerArr.length; i++) {
         if (player.x <= 25) {
-            burgerArr[i].x += 1
+            burgerArr[i].x += 2
         }
     }
 }
@@ -229,22 +228,22 @@ function moveGameElemRight() {
 function moveGameElemLeft() {
     for (let i = 0; i < foodArr.length; i++) {
         if (player.x >= 245) {
-            foodArr[i].x -= 1
+            foodArr[i].x -= 2
         }
     }
     for (let i = 0; i < appleArr.length; i++) {
         if (player.x >= 245) {
-            appleArr[i].x -= 1
+            appleArr[i].x -= 2
         }
     }
     for (let i = 0; i < sodaArr.length; i++) {
         if (player.x >= 245) {
-            sodaArr[i].x -= 1
+            sodaArr[i].x -= 2
         }
     }
     for (let i = 0; i < burgerArr.length; i++) {
         if (player.x >= 245) {
-            burgerArr[i].x -= 1
+            burgerArr[i].x -= 2
         }
     }
 }
@@ -253,27 +252,27 @@ function moveGameElemLeft() {
 let movePlayer = (e) => {
     switch (e.key) {
         case ('ArrowLeft'):
-            player.x -= 10
+            player.x -= 5
             if (player.x <= 25) {
                 player.x = 25
                 moveGameElemRight()
             }
             break
         case ('ArrowUp'):
-            player.y -= 10
+            player.y -= 5
             if (player.y <= 10) {
                 player.y = 10
             }
             break
         case ('ArrowRight'):
-            player.x += 10
+            player.x += 5
             if (player.x >= 245) {
                 player.x = 245
                 moveGameElemLeft()
             }
             break
         case ('ArrowDown'):
-            player.y += 10
+            player.y += 5
             if (player.y >= 135) {
                 player.y = 135
             }
