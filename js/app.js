@@ -30,8 +30,6 @@ function gameEnds() {
     scars = 0
     numFoodEaten = 0
     numFoodLeft = 10
-    foodArr = [0]
-    addFood()
     animate()
     hungerMeter.innerText = 'Hunger Meter'
     scarTally.innerText = 'Scar Hits'
