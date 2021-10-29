@@ -1,35 +1,57 @@
 const game = document.getElementById('canvas')
 const ctx = canvas.getContext('2d')
+const gameName = document.getElementById('gameName')
 const startMenu = document.getElementById('start')
 const endMenu = document.getElementById('gameOver')
 const winEndMenu = document.getElementById('gameWin')
 let hungerMeter = document.getElementById('btmRight')
 let scarTally = document.getElementById('btmLeft')
 
+// start menu
 function startGame() {
     startMenu.style.display = 'none'
     game.style.display = 'block'
     endMenu.style.display = 'none'
+    winEndMenu.style.display = 'none'
     animate()
+    gameName.style.display = 'none'
     backgroundSound.play()
 }
 
+// menu when player loses
 function gameEnds() {
+    gameName.style.display = 'none'
     startMenu.style.display = 'none'
     game.style.display = 'none'
     endMenu.style.display = 'block'
+    winEndMenu.style.display = 'none'
     backgroundSound.stop()
+    losingSound.play()
+    scars = 0
+    numFoodEaten = 0
+    numFoodLeft = 10
+    foodArr = [0]
+    addFood()
+    animate()
     hungerMeter.innerText = 'Hunger Meter'
-    scarTally = 'Scar Hits'
+    scarTally.innerText = 'Scar Hits'
 }
 
+// menu when play wins
 function gameWins() {
+    gameName.style.display = 'none'
     startMenu.style.display = 'none'
     game.style.display = 'none'
     endMenu.style.display = 'none'
     winEndMenu.style.display = 'block'
     backgroundSound.stop()
+    winnersSong.play()
     hungerMeter.innerText = 'Hunger Meter'
+    scarTally.innerText = 'Scar Hits'
+    scars = 0
+    numFoodEaten = 0
+    numFoodLeft = 10
+    animate()
 }
 
 const manateeImg = new Image()
@@ -44,7 +66,7 @@ function manatee(url, x, y, width, height) {
     this.height = height
     this.alive = true
 
-    this.render = function() {
+    this.render = function () {
         ctx.drawImage(this.url, this.x, this.y, this.width, this.height)
     }
 }
@@ -63,7 +85,7 @@ function gameElem(url, x, y, width, height) {
     this.height = height
     this.alive = true
 
-    this.render = function() {
+    this.render = function () {
         ctx.drawImage(this.url, this.x, this.y, this.width, this.height)
     }
 }
@@ -77,7 +99,7 @@ const newFoodX = () => {
 
 let foodArr = []
 // adding each food too foodArr
-function addFood () {
+function addFood() {
     let food = new gameElem(foodImg, newFoodX(), (Math.random() * 132), 14, 18)
     foodArr.push(food)
 }
@@ -105,11 +127,11 @@ let burgerArr = []
 let trashX = Math.floor((Math.random() * 100 + 25))
 const newTrashX = () => {
     // console.log(trashX)
-    return trashX += Math.floor(Math.random() * 50 + 50) 
+    return trashX += Math.floor(Math.random() * 50 + 50)
 }
 
 // spawn trash at random x-axis points
-function addTrash () {
+function addTrash() {
     for (let i = 0; i <= 5; i++) {
         let apple = new gameElem(appleImg, newTrashX(), -10, 16, 18)
         appleArr.push(apple)
@@ -125,10 +147,10 @@ function addTrash () {
 }
 
 // have trash falling down screen at different speeds
-function fallingTrash () {
+function fallingTrash() {
     for (let i = 0; i < appleArr.length; i++) {
         if (player.alive) {
-            appleArr[i].y += (Math.random())
+            appleArr[i].y += (Math.random() + .15)
             if (appleArr[i].y > 170) {
                 appleArr[i].y = -15
                 fallingTrash()
@@ -137,7 +159,7 @@ function fallingTrash () {
     }
     for (let i = 0; i < sodaArr.length; i++) {
         if (player.alive) {
-            sodaArr[i].y += (Math.random())
+            sodaArr[i].y += (Math.random() + .25)
             if (sodaArr[i].y > 190) {
                 sodaArr[i].y = -0
                 fallingTrash()
@@ -146,7 +168,7 @@ function fallingTrash () {
     }
     for (let i = 0; i < burgerArr.length; i++) {
         if (player.alive) {
-            burgerArr[i].y += (Math.random())
+            burgerArr[i].y += (Math.random() + .50)
             if (burgerArr[i].y > 200) {
                 burgerArr[i].y = -25
                 fallingTrash()
@@ -183,7 +205,7 @@ function createTrash() {
 }
 
 // have game elem move in the opposite direction when player hits breakpoint
-function moveGameElemRight () {
+function moveGameElemRight() {
     for (let i = 0; i < foodArr.length; i++) {
         if (player.x <= 25) {
             foodArr[i].x += 1
@@ -206,7 +228,7 @@ function moveGameElemRight () {
     }
 }
 
-function moveGameElemLeft () {
+function moveGameElemLeft() {
     for (let i = 0; i < foodArr.length; i++) {
         if (player.x >= 245) {
             foodArr[i].x -= 1
@@ -242,7 +264,7 @@ let movePlayer = (e) => {
         case ('ArrowUp'):
             player.y -= 10
             if (player.y <= 10) {
-                player. y = 10
+                player.y = 10
             }
             break
         case ('ArrowRight'):
@@ -353,14 +375,14 @@ function gameOver() {
 }
 
 function playerWins() {
-    if (scars < 3 && foodArr === []) {
+    if (scars < 3 && foodArr.length === 0) {
         gameWins()
     }
 }
 
 function animate() {
     // clears canvas
-    ctx. clearRect(0, 0, canvas.width, canvas.height)
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
     createTrash()
     fallingTrash()
     if (removeFoodEaten() === true) {
@@ -378,9 +400,11 @@ function animate() {
     }
 }
 
-let stopGameLoop = () => {clearInterval(gameInterval)}
+let stopGameLoop = () => { clearInterval(gameInterval) }
 
 let gameInterval = setInterval(animate, 20)
+
+document.addEventListener('keydown', movePlayer)
 
 // sound effects
 function sound(src) {
@@ -390,10 +414,10 @@ function sound(src) {
     this.sound.setAttribute('controls', 'none')
     this.sound.style.display = 'none'
     document.body.appendChild(this.sound)
-    this.play = function() {
+    this.play = function () {
         this.sound.play()
     }
-    this.stop = function() {
+    this.stop = function () {
         this.sound.pause()
     }
 }
@@ -401,29 +425,5 @@ function sound(src) {
 foodEatenSound = new sound('../js/sounds/foodEatenSound.mp3')
 trashHitSound = new sound('../js/sounds/trashHitSound.mp3')
 backgroundSound = new sound('../js/sounds/backgroundMusic.mp3')
-
-// // hunger meter bar
-// function HungerBar(x, y, width, height, color, maxHunger) {
-//     this.x = x
-//     this.y = y
-//     this.width = width
-//     this.height = height
-//     this.maxwidth = width
-//     this.color = color
-//     this.maxHunger = maxHunger
-
-//     this.render = function () {
-//         ctx.fillstyle = this.color
-//         ctx.fillRect(this.x, this.y, this. width, this.height)
-//     }
-// }
-
-// let hunger = 0
-// const hungerBarWidth = 200
-// const hungerBarHeight = 25
-// const x = 100
-// const y = 132
-
-// const hungerBar = new HungerBar(x, y, hungerBarWidth, hungerBarHeight, 'blue', hunger)
-
-document.addEventListener('keydown', movePlayer)
+losingSound = new sound('../js/sounds/losingSound.mp3')
+winnersSong = new sound('../js/sounds/manateeSong.mp3')
