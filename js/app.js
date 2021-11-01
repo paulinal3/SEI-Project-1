@@ -19,14 +19,6 @@ startBtn.addEventListener('click', () => {
     gameName.style.display = 'none'
     backgroundSound.play()
 })
-// function startGame() {
-//     startMenu.style.display = 'none'
-//     game.style.display = 'block'
-//     endMenu.style.display = 'none'
-//     winEndMenu.style.display = 'none'
-//     gameName.style.display = 'none'
-//     backgroundSound.play()
-// }
 
 // menu when player loses
 function gameEnds() {
