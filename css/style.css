@@ -107,7 +107,7 @@ aside {
     background-color: #78C5DC;
 }
 
-#start a, #gameOver a, #gameWin a {
+#startBtn, #tryAgainBtn, #playAgainBtn {
     border: 5px solid #def3f6;
     color:#def3f6;
     background-color: steelblue;
@@ -116,13 +116,14 @@ aside {
     border-radius: 15px;
     cursor: pointer;
     display: block;
-    width: 150px;
+    width: 200px;
     font-size: 25px;
     display: inline-block;
     margin-bottom: 30px;
+    font-family: 'Chelsea Market', cursive;
 }
 
-#start a:hover, #gameOver a:hover, #gameWin a:hover {
+#startBtn:hover, #tryAgainBtn:hover, #playAgainBtn:hover {
     background-color: #ffffff;
     color: #1bafdb;
 }

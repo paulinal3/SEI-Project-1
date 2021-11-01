@@ -4,18 +4,29 @@ const gameName = document.getElementById('gameName')
 const startMenu = document.getElementById('start')
 const endMenu = document.getElementById('gameOver')
 const winEndMenu = document.getElementById('gameWin')
+const startBtn = document.getElementById('startBtn')
+const tryAgainBtn = document.getElementById('tryAgainBtn')
+const playAgainBtn = document.getElementById('playAgainBtn')
 let hungerMeter = document.getElementById('btmRight')
 let scarTally = document.getElementById('btmLeft')
 
 // start menu
-function startGame() {
+startBtn.addEventListener('click', () => {
     startMenu.style.display = 'none'
     game.style.display = 'block'
     endMenu.style.display = 'none'
     winEndMenu.style.display = 'none'
     gameName.style.display = 'none'
     backgroundSound.play()
-}
+})
+// function startGame() {
+//     startMenu.style.display = 'none'
+//     game.style.display = 'block'
+//     endMenu.style.display = 'none'
+//     winEndMenu.style.display = 'none'
+//     gameName.style.display = 'none'
+//     backgroundSound.play()
+// }
 
 // menu when player loses
 function gameEnds() {
@@ -27,7 +38,7 @@ function gameEnds() {
     winEndMenu.style.display = 'none'
     backgroundSound.stop()
     losingSound.play()
-    tryAgain.addEventListener('click', () => {
+    tryAgainBtn.addEventListener('click', () => {
         reset()
     })
 }
@@ -42,7 +53,7 @@ function gameWins() {
     winEndMenu.style.display = 'block'
     backgroundSound.stop()
     winnersSong.play()
-    playAgain.addEventListener('click', () => {
+    playAgainBtn.addEventListener('click', () => {
         reset()
     })
 }
