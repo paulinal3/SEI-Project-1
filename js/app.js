@@ -55,7 +55,7 @@ function reset() {
 }
 
 const manateeImg = new Image()
-manateeImg.src = ('../js/images/manatee.png')
+manateeImg.src = '../js/images/manatee.png'
 
 // create manatee
 function manatee(url, x, y, width, height) {
@@ -74,8 +74,8 @@ function manatee(url, x, y, width, height) {
 let player = new manatee(manateeImg, 25, 25, 25, 12)
 
 const foodImg = new Image()
-foodImg.src = ('../js/images/foodPixil.png')
-
+foodImg.src = '../js/images/foodPixil.png'
+console.log('this is foodImg\n',foodImg)
 // game element class constructor
 function gameElem(url, x, y, width, height) {
     this.url = url
@@ -112,13 +112,13 @@ for (let i = 0; i < 10; i++) {
 console.log('this is the foodArr\n', foodArr)
 
 const appleImg = new Image()
-appleImg.src = ('../js/images/applePixil.png')
+appleImg.src = '../js/images/applePixil.png'
 
 const sodaImg = new Image()
-sodaImg.src = ('../js/images/sodaPixil.png')
+sodaImg.src = '../js/images/sodaPixil.png'
 
 const burgerImg = new Image()
-burgerImg.src = ('../js/images/burgerPixil.png')
+burgerImg.src = '../js/images/burgerPixil.png'
 
 let appleArr = []
 let sodaArr = []
