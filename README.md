@@ -4,12 +4,11 @@ Manataees are back on the endangered species list! Help Manny find enough food w
 <!-- Don't forget to come up for air every now and then! -->
 
 ## Deployed Game
-https://paulinal3.github.io/SEI-Project-1/
-
 https://wonderful-einstein-784d70.netlify.app/
 
 ## Tech Stack
-* HTML/CSS - Canvas
+* HTML/Canvas
+* CSS
 * JavaScript
 
 ## Wireframes 
